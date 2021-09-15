@@ -1,16 +1,12 @@
 module Route exposing (..)
 
 import Url exposing (Url)
-import Url.Builder as Builder
-import Url.Parser as Parser exposing (..)
-import Url.Parser.Query as Query
+import Url.Parser exposing (..)
 
 
 type Route
     = Home
-    | SignIn (Maybe String)
-    | Counter
-    | Time
+    | About
     | NotFound Url
 
 
@@ -18,9 +14,7 @@ route : Parser (Route -> a) a
 route =
     oneOf
         [ map Home top
-        , map SignIn <| s "sign-in" <?> Query.string "redirect"
-        , map Counter <| s "counter"
-        , map Time <| s "time"
+        , map About <| s "about"
         ]
 
 
@@ -37,18 +31,8 @@ toUrl r =
         Home ->
             "/"
 
-        SignIn redirect ->
-            Builder.absolute [ "sign-in" ]
-                (redirect
-                    |> Maybe.map (Builder.string "redirect" >> List.singleton)
-                    |> Maybe.withDefault []
-                )
-
-        Counter ->
-            "/counter"
-
-        Time ->
-            "/time"
+        About ->
+            "/about"
 
         NotFound url ->
             Url.toString url
@@ -67,22 +51,6 @@ matchHome : Route -> Maybe ()
 matchHome =
     matchAny Home
 
-
-matchSignIn : Route -> Maybe (Maybe String)
-matchSignIn r =
-    case r of
-        SignIn redirect ->
-            Just redirect
-
-        _ ->
-            Nothing
-
-
-matchCounter : Route -> Maybe ()
-matchCounter =
-    matchAny Counter
-
-
-matchTime : Route -> Maybe ()
-matchTime =
-    matchAny Time
+matchAbout : Route -> Maybe ()
+matchAbout =
+    matchAny About
