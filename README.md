@@ -9,7 +9,7 @@ A default template for building Elm SPA applications using Vite. Includes hot-mo
 
 > Elm is a functional language that compiles to JavaScript. It helps you make websites and web apps. It has a strong emphasis on simplicity and quality tooling.
 
-Live demo site: TBA
+Live demo site: https://vite-elm-spa.netlify.app/
 
 This template is based on [`vite-elm-template`](https://github.com/lindsaykwardell/vite-elm-spa)
 
