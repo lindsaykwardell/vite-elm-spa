@@ -1,22 +1,45 @@
-module Shared exposing (..)
+module Shared exposing
+    ( Identity
+    , Msg(..)
+    , Shared
+    , identity
+    , init
+    , replaceRoute
+    , setIdentity
+    , subscriptions
+    , update
+    )
 
 import Browser.Navigation as Nav
+import Route exposing (Route)
+
+
+type alias Identity =
+    String
 
 
 type alias Shared =
     { key : Nav.Key
-    , count : Int
+    , identity : Maybe Identity
     }
 
 
 type Msg
-    = Increment
+    = SetIdentity Identity (Maybe String)
+    | ResetIdentity
+    | PushRoute Route
+    | ReplaceRoute Route
+
+
+identity : Shared -> Maybe String
+identity =
+    .identity
 
 
 init : () -> Nav.Key -> ( Shared, Cmd Msg )
 init _ key =
     ( { key = key
-      , count = 0
+      , identity = Nothing
       }
     , Cmd.none
     )
@@ -25,10 +48,38 @@ init _ key =
 update : Msg -> Shared -> ( Shared, Cmd Msg )
 update msg shared =
     case msg of
-        Increment ->
-            ( { shared | count = shared.count + 1 }, Cmd.none )
+        SetIdentity newIdentity redirect ->
+            ( { shared | identity = Just newIdentity }
+            , redirect
+                |> Maybe.map (Nav.replaceUrl shared.key)
+                |> Maybe.withDefault Cmd.none
+            )
+
+        ResetIdentity ->
+            ( { shared | identity = Nothing }, Cmd.none )
+
+        PushRoute route ->
+            ( shared, Nav.pushUrl shared.key <| Route.toUrl route )
+
+        ReplaceRoute route ->
+            ( shared, Nav.replaceUrl shared.key <| Route.toUrl route )
 
 
 subscriptions : Shared -> Sub Msg
 subscriptions =
     always Sub.none
+
+
+setIdentity : String -> Maybe String -> Msg
+setIdentity =
+    SetIdentity
+
+
+replaceRoute : Route -> Msg
+replaceRoute =
+    ReplaceRoute
+
+
+pushRoute : Route -> Msg
+pushRoute =
+    ReplaceRoute
