@@ -12,6 +12,7 @@ import Route
 import Shared exposing (Shared)
 import Spa
 import View exposing (View)
+import Pages.About as About
 
 
 mappers : ( (a -> b) -> View a -> View b, (c -> d) -> View c -> View d )
@@ -65,6 +66,7 @@ main =
         , extractIdentity = Shared.identity
         }
         |> Spa.addPublicPage mappers Route.matchHome Home.page
+        |> Spa.addPublicPage mappers Route.matchAbout About.page
         |> Spa.addPublicPage mappers Route.matchSignIn SignIn.page
         |> Spa.addProtectedPage mappers Route.matchCounter Counter.page
         |> Spa.addPublicPage mappers Route.matchTime Time.page
