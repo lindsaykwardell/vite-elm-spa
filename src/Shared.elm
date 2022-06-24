@@ -27,7 +27,6 @@ type alias Shared =
 type Msg
     = SetIdentity Identity (Maybe String)
     | ResetIdentity
-    | PushRoute Route
     | ReplaceRoute Route
 
 
@@ -58,9 +57,6 @@ update msg shared =
         ResetIdentity ->
             ( { shared | identity = Nothing }, Cmd.none )
 
-        PushRoute route ->
-            ( shared, Nav.pushUrl shared.key <| Route.toUrl route )
-
         ReplaceRoute route ->
             ( shared, Nav.replaceUrl shared.key <| Route.toUrl route )
 
@@ -77,9 +73,4 @@ setIdentity =
 
 replaceRoute : Route -> Msg
 replaceRoute =
-    ReplaceRoute
-
-
-pushRoute : Route -> Msg
-pushRoute =
     ReplaceRoute

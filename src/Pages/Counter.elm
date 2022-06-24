@@ -11,7 +11,7 @@ import View exposing (View)
 
 
 page : Shared -> Shared.Identity -> Spa.Page.Page Int Shared.Msg (View Msg) Model Msg
-page shared identity =
+page _ _ =
     Spa.Page.element
         { init = init
         , update = update

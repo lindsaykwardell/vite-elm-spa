@@ -10,7 +10,7 @@ import View exposing (View)
 
 
 page : Shared -> Spa.Page.Page (Maybe String) Shared.Msg (View Msg) Model Msg
-page shared =
+page _ =
     Spa.Page.element
         { init = init
         , update = update
