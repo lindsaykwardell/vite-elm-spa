@@ -1,6 +1,6 @@
 module Pages.Home exposing (page)
 
-import Html exposing (a, div, text, h1, p, code, img)
+import Html exposing (a, code, div, h1, img, p, text)
 import Html.Attributes exposing (href, src, style)
 import Shared exposing (Shared)
 import Spa.Page
@@ -17,20 +17,20 @@ view shared =
     { title = "Home"
     , body =
         div []
-            [ img [ src "/logo.png", style "width" "300px" ] [],
-            h1 [] [ text "Hello, Vite + Elm + SPA!" ]
-            , p [] [
-                case Shared.identity shared of
+            [ img [ src "/logo.png", style "width" "300px" ] []
+            , h1 [] [ text "Hello, Vite + Elm + SPA!" ]
+            , p []
+                [ case Shared.identity shared of
                     Just identity ->
                         text <| "Welcome Home " ++ identity ++ "!"
 
                     Nothing ->
                         text "Welcome Home!"
                 ]
-            , div [ style "display" "flex", style "justify-content" "space-between" ] 
+            , div [ style "display" "flex", style "justify-content" "space-between" ]
                 [ div [] [ a [ href "/counter" ] [ text "See counter" ] ]
                 , div [] [ a [ href "/time" ] [ text "See time" ] ]
-                , div [] [ a [ href "/about" ] [ text "About vite-elm-spa"] ]
+                , div [] [ a [ href "/about" ] [ text "About vite-elm-spa" ] ]
                 ]
             , p []
                 [ a [ href "https://vitejs.dev/guide/features.html" ] [ text "Vite Documentation" ]

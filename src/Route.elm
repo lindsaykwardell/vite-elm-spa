@@ -1,4 +1,4 @@
-module Route exposing (Route(..), matchCounter, matchHome, matchSignIn, matchTime, toRoute, toUrl, matchAbout)
+module Route exposing (Route(..), matchAbout, matchCounter, matchHome, matchSignIn, matchTime, toRoute, toUrl)
 
 import Url exposing (Url)
 import Url.Builder as Builder
@@ -72,6 +72,7 @@ matchHome : Route -> Maybe ()
 matchHome =
     matchAny Home
 
+
 matchAbout : Route -> Maybe ()
 matchAbout r =
     case r of
@@ -80,6 +81,7 @@ matchAbout r =
 
         _ ->
             Nothing
+
 
 matchSignIn : Route -> Maybe (Maybe String)
 matchSignIn r =

@@ -4,6 +4,7 @@ import Browser exposing (Document)
 import Html exposing (a, button, div, text)
 import Html.Attributes exposing (href, style)
 import Html.Events exposing (onClick)
+import Pages.About as About
 import Pages.Counter as Counter
 import Pages.Home as Home
 import Pages.SignIn as SignIn
@@ -12,7 +13,6 @@ import Route
 import Shared exposing (Shared)
 import Spa
 import View exposing (View)
-import Pages.About as About
 
 
 mappers : ( (a -> b) -> View a -> View b, (c -> d) -> View c -> View d )

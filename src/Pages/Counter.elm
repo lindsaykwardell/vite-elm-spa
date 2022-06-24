@@ -1,4 +1,4 @@
-module Pages.Counter exposing (Model, Msg(..), page)
+module Pages.Counter exposing (Model, Msg(..), counterElements, init, page, update)
 
 import Effect exposing (Effect)
 import Html exposing (Html, a, button, div, text)
@@ -79,7 +79,7 @@ counterElements model =
                 [ style "padding" "10px"
                 ]
                 [ myButton "Increment" Increment
-                , text <| String.fromInt model.amount
+                , text <| "Count is: " ++ String.fromInt model.amount
                 , myButton "Decrement" Decrement
                 ]
             , div [] [ a [ href "?value=0" ] [ text "Reset" ] ]
